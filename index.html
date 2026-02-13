@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For My Love Nabia ❤️</title>
 
 <style>
@@ -12,6 +13,69 @@ body{
     text-align:center;
     color:white;
     overflow:hidden;
+}
+
+/* Envelope */
+.envelope{
+    font-size:30vw;
+    cursor:pointer;
+    margin-top:25vh;
+    transition:0.5s;
+}
+
+.envelope:hover{
+    transform:scale(1.1);
+}
+
+/* Sections */
+#letter, #proposal, #celebration{
+    display:none;
+    padding:20px;
+}
+
+#letter{
+    font-size:4vw;
+    line-height:1.8;
+}
+
+@media(min-width:768px){
+    #letter{
+        font-size:18px;
+        width:70%;
+        margin:auto;
+    }
+}
+
+/* Buttons */
+button{
+    padding:12px 25px;
+    font-size:18px;
+    border:none;
+    border-radius:25px;
+    cursor:pointer;
+    margin:15px;
+}
+
+#yes{
+    background:#ff0066;
+    color:white;
+}
+
+#no{
+    background:white;
+    color:#ff0066;
+    position:absolute;
+}
+
+/* Celebration */
+#celebration{
+    font-size:7vw;
+}
+
+@media(min-width:768px){
+    #celebration{
+        font-size:32px;
+    }
 }
 
 /* Floating Hearts */
@@ -28,52 +92,29 @@ body{
     100%{transform:translateY(-100vh);}
 }
 
-.envelope{
-    font-size:110px;
-    cursor:pointer;
-    margin-top:200px;
-    transition:0.5s;
-}
-
-.envelope:hover{
-    transform:scale(1.2);
-}
-
-#proposal{
-    display:none;
-    margin-top:150px;
-}
-
-button{
-    padding:12px 25px;
-    font-size:18px;
-    border:none;
-    border-radius:25px;
-    cursor:pointer;
-    margin:15px;
-    transition:0.3s;
-}
-
-#yes{
-    background:#ff0066;
-    color:white;
-}
-
-#no{
+/* Fireworks */
+.firework{
+    position:fixed;
+    width:5px;
+    height:5px;
     background:white;
-    color:#ff0066;
-    position:absolute;
+    border-radius:50%;
+    animation: explode 1s ease-out forwards;
 }
 
-#celebration{
-    display:none;
-    font-size:32px;
-    margin-top:120px;
-    animation: pop 1s ease infinite alternate;
+@keyframes explode{
+    from{transform:scale(1);}
+    to{transform:scale(20); opacity:0;}
+}
+
+/* Ring */
+#ring{
+    font-size:80px;
+    animation: pop 0.8s ease forwards;
 }
 
 @keyframes pop{
-    from{transform:scale(1);}
+    from{transform:scale(0);}
     to{transform:scale(1.2);}
 }
 </style>
@@ -81,28 +122,45 @@ button{
 
 <body>
 
-<!-- Background Music -->
-<audio autoplay loop>
-    <source src="https://www2.cs.uic.edu/~i101/SoundFiles/Canon.mp3" type="audio/mpeg">
-</audio>
-
 <div class="envelope" onclick="openLetter()">💌</div>
 
+<div id="letter">
+<h2>Meri Pyari Nabia Hassan ❤️</h2>
+<p>
+Jab se Ap meri zindagi mein aayi hain, meri duniya roshan ho gayi hai.
+Ap ki muskurahat meri subah ka noor hai aur Ap ki awaaz meri raat ka sukoon.
+Main Allah ka shukar ada karta hoon ke Us ne mujhe Ap jaisi paak dil aur
+khubsurat larki se milwaya.
+
+Main wada karta hoon ke main hamesha Ap ki izzat karunga,
+Ap ka khayal rakhunga aur har mushkil mein Ap ke saath khara rahunga.
+Main apni puri zindagi Ap ke saath guzarne ka khwab dekhta hoon 💍
+</p>
+
+<button onclick="showProposal()">Continue ❤️</button>
+</div>
+
 <div id="proposal">
-    <h1>Will You Be Mine Forever, <br> Nabia Hassan? ❤️</h1>
-    <button id="yes" onclick="sayYes()">Yes ❤️</button>
-    <button id="no" onmouseover="moveNo()">No 💔</button>
+<h2>Will You Be Mine Forever, Nabia? ❤️</h2>
+<button id="yes" onclick="sayYes()">Yes ❤️</button>
+<button id="no" ontouchstart="moveNo()" onmouseover="moveNo()">No 💔</button>
 </div>
 
 <div id="celebration">
-    🎉 Yayyyy My Beautiful Nabia!!! 💋❤️<br>
-    You are my forever, my future wife 💍💖
+<div id="ring">💍</div>
+🎉 Alhamdulillah Nabia!!! 💖<br>
+You Are My Forever 💋
 </div>
 
 <script>
 
 function openLetter(){
     document.querySelector('.envelope').style.display='none';
+    document.getElementById('letter').style.display='block';
+}
+
+function showProposal(){
+    document.getElementById('letter').style.display='none';
     document.getElementById('proposal').style.display='block';
 }
 
@@ -116,9 +174,10 @@ function moveNo(){
 function sayYes(){
     document.getElementById('proposal').style.display='none';
     document.getElementById('celebration').style.display='block';
+    startFireworks();
 }
 
-/* Create Floating Hearts */
+/* Floating Hearts */
 function createHeart(){
     const heart = document.createElement("div");
     heart.classList.add("heart");
@@ -127,14 +186,21 @@ function createHeart(){
     heart.style.fontSize = (Math.random()*20 + 15) + "px";
     heart.style.animationDuration = (Math.random()*3 + 3) + "s";
     document.body.appendChild(heart);
-
-    setTimeout(()=>{
-        heart.remove();
-    },6000);
+    setTimeout(()=>{ heart.remove(); },6000);
 }
-
 setInterval(createHeart,300);
 
+/* Fireworks */
+function startFireworks(){
+    for(let i=0;i<30;i++){
+        let fw=document.createElement("div");
+        fw.classList.add("firework");
+        fw.style.left=Math.random()*100+"vw";
+        fw.style.top=Math.random()*100+"vh";
+        document.body.appendChild(fw);
+        setTimeout(()=>{fw.remove();},1000);
+    }
+}
 </script>
 
 </body>
