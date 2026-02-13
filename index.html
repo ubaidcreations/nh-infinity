@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>For My Love Nabia ❤️</title>
+
+<style>
+body{
+    margin:0;
+    padding:0;
+    font-family:'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #ff4e88, #ff99ac);
+    text-align:center;
+    color:white;
+    overflow:hidden;
+}
+
+/* Floating Hearts */
+.heart{
+    position:fixed;
+    bottom:-20px;
+    font-size:20px;
+    animation: float 6s linear infinite;
+    opacity:0.8;
+}
+
+@keyframes float{
+    0%{transform:translateY(0);}
+    100%{transform:translateY(-100vh);}
+}
+
+.envelope{
+    font-size:110px;
+    cursor:pointer;
+    margin-top:200px;
+    transition:0.5s;
+}
+
+.envelope:hover{
+    transform:scale(1.2);
+}
+
+#proposal{
+    display:none;
+    margin-top:150px;
+}
+
+button{
+    padding:12px 25px;
+    font-size:18px;
+    border:none;
+    border-radius:25px;
+    cursor:pointer;
+    margin:15px;
+    transition:0.3s;
+}
+
+#yes{
+    background:#ff0066;
+    color:white;
+}
+
+#no{
+    background:white;
+    color:#ff0066;
+    position:absolute;
+}
+
+#celebration{
+    display:none;
+    font-size:32px;
+    margin-top:120px;
+    animation: pop 1s ease infinite alternate;
+}
+
+@keyframes pop{
+    from{transform:scale(1);}
+    to{transform:scale(1.2);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- Background Music -->
+<audio autoplay loop>
+    <source src="https://www2.cs.uic.edu/~i101/SoundFiles/Canon.mp3" type="audio/mpeg">
+</audio>
+
+<div class="envelope" onclick="openLetter()">💌</div>
+
+<div id="proposal">
+    <h1>Will You Be Mine Forever, <br> Nabia Hassan? ❤️</h1>
+    <button id="yes" onclick="sayYes()">Yes ❤️</button>
+    <button id="no" onmouseover="moveNo()">No 💔</button>
+</div>
+
+<div id="celebration">
+    🎉 Yayyyy My Beautiful Nabia!!! 💋❤️<br>
+    You are my forever, my future wife 💍💖
+</div>
+
+<script>
+
+function openLetter(){
+    document.querySelector('.envelope').style.display='none';
+    document.getElementById('proposal').style.display='block';
+}
+
+function moveNo(){
+    var x = Math.random() * (window.innerWidth - 100);
+    var y = Math.random() * (window.innerHeight - 50);
+    document.getElementById('no').style.left = x + 'px';
+    document.getElementById('no').style.top = y + 'px';
+}
+
+function sayYes(){
+    document.getElementById('proposal').style.display='none';
+    document.getElementById('celebration').style.display='block';
+}
+
+/* Create Floating Hearts */
+function createHeart(){
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML="💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random()*20 + 15) + "px";
+    heart.style.animationDuration = (Math.random()*3 + 3) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{
+        heart.remove();
+    },6000);
+}
+
+setInterval(createHeart,300);
+
+</script>
+
+</body>
+</html>
